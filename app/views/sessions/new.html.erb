@@ -1,0 +1,55 @@
+<div id="container">
+
+   
+
+    <fieldset>
+        <legend>Registration</legend>
+            <%= form_for @user, :url => url_for(:controller => 'users', :action => "create") do |f| %>
+            <table>
+
+                <tr>
+                    <td>Name<%= f.text_field :name, :placeholder => "Name" %></td>
+                    
+                    
+                </tr>
+                <tr>
+                    <td>Email<%= f.text_field :email, :placeholder => "Email" %></td>
+                    <td>Description:<%= f.text_area :description %></td>
+                    
+                </tr>
+                <tr>
+
+                    <td>Password<%= f.password_field :password, :placeholder => "Password" %></td>
+                    <td>Confirm Password<%= f.password_field :password_confirmation, :placeholder => "Confirm Password" %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><%= submit_tag 'Register' %></td>
+                </tr>
+            </table>
+            <% end %>
+    </fieldset>
+
+
+     <fieldset>
+        <legend>Login</legend>
+            <%= form_for @user, :url => url_for(:controller => 'sessions', :action => "create") do |f| %>
+            <table>
+
+                <tr>
+                    <td>Email<%= f.text_field :email, :placeholder => "Email" %></td>
+                    
+                </tr>
+                <tr>
+
+                    <td>Password<%= f.password_field :password, :placeholder => "Password" %></td>
+                    <td>Confirm Password<%= f.password_field :password_confirmation, :placeholder => "Confirm Password" %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><%= submit_tag 'Login' %></td>
+                </tr>
+            </table>
+            <% end %>
+    </fieldset>
+</div>

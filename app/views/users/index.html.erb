@@ -1,0 +1,52 @@
+<h1>Hello, <%=@user.name%></h1>
+
+<p>Here are all of your Friends</p>
+<table>
+    <thead>
+        <tr>
+            <td>Friends</td>
+            <td>Name</td>
+        </tr>
+    </thead>
+    <tbody class="zebra">
+    <% @users.each do |s| %>
+        <tr>
+            
+            <td><%= s.name %></td>
+            <td><a href="/users/<%= s.id %>"><%= s.name %></a></td>
+            <td><%= s.friendship.count %></td>
+            <td>
+            
+
+                <form action="/friendships/" method="POST">
+                  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                  <input type="hidden" name="user_id" value="<%= s.id %>">
+                  <input type="submit" value="Add">
+                </form>
+            
+            </td>
+        </tr>
+        <% end %>
+    </tbody>  
+</table>
+
+<fieldset>
+        <legend>Add a friend:</legend>
+            <%= form_for @new_user, :url => url_for(:controller => 'users', :action => "create") do |s| %>
+            <table>
+
+                <tr>
+                    <td>Name<%= s.text_field :name, :placeholder => "name" %></td>
+                    
+                </tr>
+                <tr>
+
+                    <td>Description<%= s.text_field :description, :placeholder => "Description" %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><%= submit_tag 'Add a New Friend' %></td>
+                </tr>
+            </table>
+            <% end %>
+    </fieldset>
