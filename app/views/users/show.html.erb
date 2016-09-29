@@ -1,32 +1,4 @@
-<h1>Hi  <%= @user.name %> wecome Back to the site</h1>
-<table border=1 cellpadding="10">
-    <thead>
-        <tr>
-            <td>Here are Your Friends</td>
-            <td>   Description  </td>
-             <td>  FriendShip Id </td>
+<h1>User#show</h1>
 
-    
-        </tr>
-    </thead>
-   
 
-    <% @friendships.each do |p| %>
-        <tr>
-            <% if p.user_id != session[:user_id] %>
-
-                <td><a href="/users/<%= p.user.id%>"><%= p.user.name %></a></td>
-                <td> <%= p.user.description %></td>
-                <td><%= @friendships.where(user_id:p.user_id).count %></td>
-            <% end %>
-        </tr>
-        <% end %>
-    </tbody>  
-</table>
-
-<table>
-<h2> Invitations</h2><br>
-<h2> the followning people would like to be in your network</h2>
-<table border=1 cellpadding="10">
-    
-</table>
+<p>Find me in app/views/user/show.html.erb</p>

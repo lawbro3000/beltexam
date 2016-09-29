@@ -1,39 +1,66 @@
 class UsersController < ApplicationController
-  def index
-    @user = User.find_by_id(session[:user_id])
-    @users = User.all
-    @new_user = User.new
+def index
+
+end
+
+def create
+  user = User.new(fname:params[:fname],lname:params[:lname],email:params[:email],password:params[:password],password_confirmation:params[:password_confirmation])
+  if user.valid?
+    user.save
+    puts user.errors.full_messages
+    session[:user_id] = user.id
+    redirect_to '/users/profile'
+  else
+    redirect_to '/', :notice => user.errors.full_messages
   end
 
-  def new
-  end
+end
 
-  def create
-    user = User.new(name:params[:name],email:params[:email],password:params[:password],password_confirmation:params[:password_confirmation], description:params[:description])
-    if user.valid?
-      user.save
-      redirect_to '/users/index'
+def login
+  if !params[:email].blank? && !params[:password].blank?
+    user = User.find_by_email(params[:email])
+    if user
+      if  user.authenticate(params[:password])
+        session[:user_id] = user.id
+        redirect_to '/users/profile'
+      else
+        redirect_to '/', :alert =>  "email password combo dont match"
+      end
     else
-      redirect_to '/', :notice => user.errors.full_messages
+      redirect_to '/', :alert =>  "email doesnt exist"
     end
+  else
+    redirect_to '/', :alert =>  "email and password cant be blank"
+  end
+end
 
 
-  def make
-    user = User.new(users_params)
-    if user.save
-      session[:user_id] = user.id
-      flash[:notice] = "Welcome #{user.name}"
-      redirect_to '/users/index'
-    else
-      flash[:errors] = user.errors.full_messages
-      redirect_to '/'
-    end
+
+def new
+  user = User.new(fname:params[:fname],lname:params[:lname],email:params[:email],password:params[:password],password_confirmation:params[:password_confirmation])
+  if user.valid?
+    user.save
+    puts user.errors.full_messages
+    session[:user_id] = user.id
+    redirect_to '/users/profile'
+  else
+    redirect_to '/', :notice => user.errors.full_messages
   end
 
-  def show
-      @user = User.find(params[:id])
-      @friendships = User.find(params[:id]).friendships
-  end
+end
 
-  end
+
+def show
+	@user = User.find(session[:user_id])
+  @alluser = User.all
+end
+
+def profile
+	@user = User.find(session[:user_id])
+  @user_all = User.all
+  @memberships_all = Membership.all
+  @group_all= Group.all
+	@user = User.find(session[:user_id])
+  @alluser = User.all
+end
 end

@@ -3,7 +3,6 @@
     <p> <%= message %> </p>
 <% end %>
 <% end %>
-
 <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
 <div id="container">
      <fieldset>
@@ -13,15 +12,12 @@
             <table>
 
                 <tr>
-                    <td>First Name<input type="text" name="fname" placeholder = "First Name"></td>
-                </tr>
-
-                <tr>
-                    <td>Last Name<input type="text" name="lname" placeholder = "Last Name"></td>
+                    <td>Name<input type="text" name="name" placeholder = "Name"></td>
                 </tr>
                 <tr>
 
                     <td>Email<input type="email" name="email" placeholder = "email"></td>
+                    <td>Description<input type="textarea" name="description" placeholder = "description"></td>
                     </tr>
                 </table>
                 <tr>
@@ -56,9 +52,6 @@
             </form>
     </fieldset>
 </div>
-
-<% if flash[:notice] %>
-<% flash[:notice].each do |message| %>
-    <p> <%= message %> </p>
-<% end %>
+<% if flash[:alert] %>
+<%= flash[:alert] %>
 <% end %>
